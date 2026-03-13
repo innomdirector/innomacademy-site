@@ -1,0 +1,11 @@
+# Dependencies
+**/node_modules/
+
+# Build outputs
+frontend/dist/
+
+# Env files (never commit secrets)
+.env
+.env.*
+backend/.env
+

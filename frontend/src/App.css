@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Science+Gothic:wght@100..900&display=swap');
+@import "tailwindcss";
+
+*{
+  cursor: url('/cursor88.png'), auto !important;
+}
+
+@font-face {
+  font-family: "MSBlock";
+  src: url("/src/assets/fonts/MSBlock.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "AFont";
+  src: url("/src/assets/fonts/a.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "sanet";
+  src: url("/src/assets/fonts/sanet.ttf") format("opentype");
+}
+
+@font-face {
+  font-family: "mersad1";
+  src: url("/src/assets/fonts/MersadBlack-100.otf") format("opentype");
+}
+@font-face {
+  font-family: "mersad2";
+  src: url("/src/assets/fonts/MersadBold-200.otf") format("opentype");
+}
+
+:root {
+  --font-gothic: "Science Gothic", sans-serif;
+  --font-msblock: "MSBlock", sans-serif;
+  --font-a: "AFont", sans-serif;
+  --font-sanet: "sanet", sans-serif;
+  --font-mersad1: "mersad1", sans-serif;
+  --font-mersad2: "mersad2", sans-serif;
+  --bg-main: #05070d;
+  --bg-section: #0b1220;
+  --bg-card: #111827;
+  --bg-light-section: #f8fafc;
+  --text-main: #e5e7eb;
+  --text-muted: #94a3b8;
+  --primary: #38bdf8;
+  --primary-hover: #0ea5e9;
+  --border-main: #1e293b;
+}
+
+
+@layer utilities {
+  .font-gothic {
+    font-family: var(--font-gothic);
+  }
+
+  .font-msblock {
+    font-family: var(--font-msblock);
+  }
+
+  .font-a {
+    font-family: var(--font-a);
+  }
+  .font-sanet {
+    font-family: var(--font-sanet);
+  }
+  .font-mersad1 {
+    font-family: var(--font-mersad1);
+  }
+  .font-mersad2 {
+    font-family: var(--font-mersad2);
+  }
+}
+
+
+
+/* Animated gradient: cyan (light ↔ dark) shifting right-to-left */
+.animated-gradient {
+  background: linear-gradient(90deg, #67e8f9 0%, #0fafaf 50%, #67e8f9 100%);
+  background-size: 200% 100%;
+  animation: gradientShift 3s linear infinite;
+  will-change: background-position;
+}
+
+.animated-gradient-slow {
+  background: linear-gradient(90deg, #67e8f9 0%, #0fafaf 50%, #67e8f9 100%);
+  background-size: 200% 100%;
+  animation: gradientShift 6s linear infinite;
+  will-change: background-position;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 100% 50%; }
+  50% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+/* Infinity slide: მარჯვნიდან მარცხნივ */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 35s linear infinite;
+}
+
+.marquee-mask {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 8%,
+    black 92%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 8%,
+    black 92%,
+    transparent
+  );
+}
+
+
+/* html, body, #root {
+  height: 100%;
+} */
+body {
+  background-color:#02080f;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.05),
+      rgba(255, 255, 255, 0.05) 1px,
+      transparent 1px,
+      transparent 20px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.05),
+      rgba(255, 255, 255, 0.05) 1px,
+      transparent 1px,
+      transparent 20px
+    );
+  background-repeat: no-repeat;
+  background-size: cover;
+}
