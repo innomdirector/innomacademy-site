@@ -32,7 +32,7 @@ function Hero() {
           {/* image */}
           <figure className="z-10 sm:z-0 absolute -right-20 sm:-right-35 sm:-bottom-15 md:-bottom-27.5 -bottom-12.5 w-107.5 sm:w-185 md:w-205 lg:w-250 pointer-events-none">
             <motion.img
-              src="/images/DSC002525.png"
+              src="/images/DSC002525.webp"
               alt="INNO M Academy-ის სტუდენტი"
               className="w-full origin-bottom"
               width="1200"
