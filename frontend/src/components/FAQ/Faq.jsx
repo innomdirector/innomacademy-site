@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { FaChevronDown } from 'react-icons/fa'
 
 const Faq = () => {
-  const [openId, setOpenId] = useState(0)
+  const [openIds, setOpenIds] = useState([0])
 
   const items = [
     {
@@ -38,7 +38,9 @@ const Faq = () => {
   ]
 
   const toggle = (idx) => {
-    setOpenId((prev) => (prev === idx ? null : idx))
+    setOpenIds((prev) =>
+      prev.includes(idx) ? prev.filter((id) => id !== idx) : [...prev, idx]
+    )
   }
 
   return (
@@ -61,7 +63,7 @@ const Faq = () => {
 
         <div className="space-y-4" role="list">
           {items.map((item, idx) => {
-            const isOpen = openId === idx
+            const isOpen = openIds.includes(idx)
             return (
               <div
                 key={item.q}
