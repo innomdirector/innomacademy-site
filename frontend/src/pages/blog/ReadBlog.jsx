@@ -46,7 +46,7 @@ function ReadBlog() {
         <Seo
           title="სტატია ვერ მოიძებნა | INNO M Academy"
           description="მოთხოვნილი სტატია ვერ მოიძებნა."
-          path={`/blog/${slug || ''}`}
+          path={`/blog/${slug || ''}/`}
           noindex
         />
         <div className="max-w-4xl mx-auto px-6 py-20">
@@ -82,7 +82,7 @@ function ReadBlog() {
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': toAbsoluteUrl(`/blog/${post.slug}`),
+      '@id': toAbsoluteUrl(`/blog/${post.slug}/`),
     },
     description: post.excerpt,
     articleSection: post.categories.map(getCategoryLabel).join(', '),
@@ -104,13 +104,13 @@ function ReadBlog() {
         '@type': 'ListItem',
         position: 2,
         name: 'ბლოგი',
-        item: toAbsoluteUrl('/blog'),
+        item: toAbsoluteUrl('/blog/'),
       },
       {
         '@type': 'ListItem',
         position: 3,
         name: post.title,
-        item: toAbsoluteUrl(`/blog/${post.slug}`),
+        item: toAbsoluteUrl(`/blog/${post.slug}/`),
       },
     ],
   }
@@ -121,7 +121,7 @@ function ReadBlog() {
       <Seo
         title={`${post.title} | INNO M Academy`}
         description={post.excerpt}
-        path={`/blog/${post.slug}`}
+        path={`/blog/${post.slug}/`}
         image={post.coverImage || '/icon-images/innomlogov2.png'}
         ogType="article"
         publishedTime={post.publishedAt}
@@ -131,7 +131,7 @@ function ReadBlog() {
       />
 
       <div className="max-w-5xl mx-auto px-6 py-16">
-        <Link to="/blog" className="text-[#93c5fd] text-sm font-semibold hover:text-[#60a5fa] transition-colors">
+        <Link to="/blog/" className="text-[#93c5fd] text-sm font-semibold hover:text-[#60a5fa] transition-colors">
           ← ბლოგზე დაბრუნება
         </Link>
 

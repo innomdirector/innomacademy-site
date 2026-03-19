@@ -94,7 +94,7 @@ const blogIndexBody = (posts) => {
   const cards = posts.map((post) => (
     `<article style="border:1px solid #253146;border-radius:16px;padding:16px;margin:0 0 14px 0;background:#0f172a;">
       <h2 style="margin:0 0 8px 0;font-size:1.1rem;color:#dbeafe;">
-        <a href="/blog/${escapeHtml(post.slug)}" style="color:#dbeafe;text-decoration:none;">${escapeHtml(post.title)}</a>
+        <a href="/blog/${escapeHtml(post.slug)}/" style="color:#dbeafe;text-decoration:none;">${escapeHtml(post.title)}</a>
       </h2>
       <p style="margin:0 0 8px 0;color:#cbd5e1;line-height:1.6;">${escapeHtml(post.excerpt)}</p>
       <p style="margin:0;color:#94a3b8;font-size:0.9rem;">${escapeHtml(post.publishedAt)} • ${escapeHtml(String(post.readingMinutes))} წთ</p>
@@ -119,7 +119,7 @@ const blogPostBody = (post) => {
   )).join('\n')
 
   return `<main style="max-width:940px;margin:0 auto;padding:32px 20px;color:#e2e8f0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;">
-  <p style="margin:0 0 12px 0;"><a href="/blog" style="color:#93c5fd;text-decoration:none;">← ბლოგზე დაბრუნება</a></p>
+  <p style="margin:0 0 12px 0;"><a href="/blog/" style="color:#93c5fd;text-decoration:none;">← ბლოგზე დაბრუნება</a></p>
   <h1 style="font-size:2rem;line-height:1.25;margin:0 0 10px 0;color:#ffffff;">${escapeHtml(post.title)}</h1>
   <p style="margin:0 0 10px 0;color:#93c5fd;font-size:0.92rem;">${escapeHtml(post.publishedAt)} • ${escapeHtml(String(post.readingMinutes))} წთ</p>
   <p style="margin:0 0 18px 0;line-height:1.75;color:#cbd5e1;">${escapeHtml(post.excerpt)}</p>
@@ -188,7 +188,7 @@ const buildBlogStructuredData = (posts) => ({
     datePublished: post.publishedAt,
     dateModified: post.updatedAt,
     image: toAbsoluteUrl(post.cardImage || post.coverImage || '/icon-images/innomlogov2.png'),
-    url: toAbsoluteUrl(`/blog/${post.slug}`),
+    url: toAbsoluteUrl(`/blog/${post.slug}/`),
   })),
 })
 
@@ -211,7 +211,7 @@ const buildArticleStructuredData = (post) => ({
       url: toAbsoluteUrl('/icon-images/innomlogov2.png'),
     },
   },
-  mainEntityOfPage: toAbsoluteUrl(`/blog/${post.slug}`),
+  mainEntityOfPage: toAbsoluteUrl(`/blog/${post.slug}/`),
   description: post.excerpt,
   image: toAbsoluteUrl(post.coverImage || '/icon-images/innomlogov2.png'),
 })
@@ -235,7 +235,7 @@ const run = async () => {
   const blogPageSeo = {
     title: 'ბლოგი | INNO M Academy',
     description: 'პროგრამირების, AI-ს, მშობლების და ახალგაზრდების თემებზე პრაქტიკული სტატიები.',
-    canonical: toAbsoluteUrl('/blog'),
+    canonical: toAbsoluteUrl('/blog/'),
     image: toAbsoluteUrl('/icon-images/innomlogov2.png'),
     keywords: 'ბლოგი, პროგრამირება, AI, მშობლებისთვის, ახალგაზრდებისთვის',
     ogType: 'website',
@@ -243,7 +243,7 @@ const run = async () => {
       buildBlogStructuredData(posts),
       buildBreadcrumb([
         { name: 'მთავარი', url: toAbsoluteUrl('/') },
-        { name: 'ბლოგი', url: toAbsoluteUrl('/blog') },
+        { name: 'ბლოგი', url: toAbsoluteUrl('/blog/') },
       ]),
     ],
     bodyHtml: blogIndexBody(posts),
@@ -256,7 +256,7 @@ const run = async () => {
     const pageSeo = {
       title: `${post.title} | INNO M Academy`,
       description: post.excerpt,
-      canonical: toAbsoluteUrl(route),
+      canonical: toAbsoluteUrl(`${route}/`),
       image: toAbsoluteUrl(post.coverImage || '/icon-images/innomlogov2.png'),
       keywords: Array.isArray(post.keywords) ? post.keywords.join(', ') : '',
       ogType: 'article',
@@ -266,8 +266,8 @@ const run = async () => {
         buildArticleStructuredData(post),
         buildBreadcrumb([
           { name: 'მთავარი', url: toAbsoluteUrl('/') },
-          { name: 'ბლოგი', url: toAbsoluteUrl('/blog') },
-          { name: post.title, url: toAbsoluteUrl(route) },
+          { name: 'ბლოგი', url: toAbsoluteUrl('/blog/') },
+          { name: post.title, url: toAbsoluteUrl(`${route}/`) },
         ]),
       ],
       bodyHtml: blogPostBody(post),

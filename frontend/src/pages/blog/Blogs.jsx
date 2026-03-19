@@ -40,7 +40,7 @@ function Blogs() {
       datePublished: post.publishedAt,
       dateModified: post.updatedAt,
       image: toAbsoluteUrl(post.cardImage || post.coverImage || '/icon-images/innomlogov2.png'),
-      url: toAbsoluteUrl(`/blog/${post.slug}`),
+      url: toAbsoluteUrl(`/blog/${post.slug}/`),
     })),
   }
 
@@ -58,7 +58,7 @@ function Blogs() {
         '@type': 'ListItem',
         position: 2,
         name: 'ბლოგი',
-        item: toAbsoluteUrl('/blog'),
+        item: toAbsoluteUrl('/blog/'),
       },
     ],
   }
@@ -69,7 +69,7 @@ function Blogs() {
       <Seo
         title="ბლოგი | INNO M Academy"
         description="პროგრამირებაზე, AI-ზე და მშობლებისა და ახალგაზრდების თემებზე პრაქტიკული სტატიები."
-        path="/blog"
+        path="/blog/"
         keywords={['ბლოგი', 'პროგრამირება', 'AI', 'მშობლებისთვის', 'ახალგაზრდებისთვის']}
         structuredData={[blogListStructuredData, breadcrumbStructuredData]}
       />
@@ -165,7 +165,7 @@ function Blogs() {
 
                     <h2 className="text-xl sm:text-2xl font-mersad1 mt-4 leading-snug text-white">
                       <Link
-                        to={`/blog/${post.slug}`}
+                        to={`/blog/${post.slug}/`}
                         className={`bg-linear-to-r ${theme.title} text-transparent bg-clip-text transition-opacity hover:opacity-90`}
                       >
                         {post.title}
@@ -175,7 +175,7 @@ function Blogs() {
                     <p className="text-white/70 mt-4 mb-4 text-sm">{post.excerpt}</p>
 
                     <Link
-                      to={`/blog/${post.slug}`}
+                      to={`/blog/${post.slug}/`}
                       className="mt-auto inline-flex justify-center text-center w-full py-3 px-4 rounded-xl font-semibold text-white bg-linear-to-r from-[#0d1a2d] via-[#13233b] to-[#0f1d31] border border-[#93c5fd]/10 shadow-[0_12px_28px_rgba(0,0,0,0.35)]"
                     >
                       სტატიის წაკითხვა
