@@ -1,7 +1,7 @@
 import React from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, Navigate, useParams } from 'react-router-dom'
 import Seo from '../../seo/Seo'
-import { getBlogPostBySlug, getCategoryLabel } from './blogPosts'
+import { getBlogPostBySlug, getCanonicalBlogSlug, getCategoryLabel } from './blogPosts'
 import { toAbsoluteUrl } from '../../seo/siteConfig'
 
 const formatDate = (dateValue) => (
@@ -38,7 +38,13 @@ const renderParagraphWithHighlights = (paragraph) => {
 
 function ReadBlog() {
   const { slug } = useParams()
-  const post = getBlogPostBySlug(slug)
+  const canonicalSlug = getCanonicalBlogSlug(slug)
+
+  if (canonicalSlug && canonicalSlug !== slug) {
+    return <Navigate to={`/blog/${canonicalSlug}/`} replace />
+  }
+
+  const post = getBlogPostBySlug(canonicalSlug || slug)
 
   if (!post) {
     return (
@@ -52,7 +58,7 @@ function ReadBlog() {
         <div className="max-w-4xl mx-auto px-6 py-20">
           <h1 id="not-found-title" className="text-3xl sm:text-4xl md:text-5xl font-mersad1">სტატია ვერ მოიძებნა</h1>
           <p className="text-white/75 mt-4">შესაძლოა ბმული შეცვლილია ან სტატია წაშლილია.</p>
-          <Link to="/blog" className="inline-flex mt-6 rounded-xl border border-[#38bdf8]/45 px-4 py-2 text-sm font-semibold text-[#7dd3fc]">
+          <Link to="/blog/" className="inline-flex mt-6 rounded-xl border border-[#38bdf8]/45 px-4 py-2 text-sm font-semibold text-[#7dd3fc]">
             ბლოგზე დაბრუნება
           </Link>
         </div>

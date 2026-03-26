@@ -2,6 +2,7 @@
 // - `cardImage`: გამოიყენე ბლოგის სიის ბარათის ფოტოსთვის.
 // - `coverImage`: გამოიყენე კონკრეტული სტატიის სათაურის ქვეშ.
 // - `**სიტყვა**`: ავტომატურად გამოიკვეთება ფერადად ReadBlog გვერდზე.
+// - `legacySlugs`: გამოიყენე ძველი URL slug-ებისთვის, რომ canonical redirect ავაგოთ.
 
 export const BLOG_CATEGORIES = [
   { id: 'ai', label: 'AI' },
@@ -15,6 +16,7 @@ export const BLOG_CATEGORIES = [
 const BASE_BLOG_POSTS = [
   {
     slug: 'how-to-start-programming',
+    legacySlugs: ['how-to-start-programming-in-2026'],
     title: 'როგორ დავიწყო პროგრამირება: მარტივი გეგმა დამწყებთათვის',
     excerpt:
       'მარტივი რჩევები დამწყებთათვის: როგორ აირჩიო მიმართულება, როგორ დაგეგმო სწავლა და როგორ შექმნა პატარა პორტფოლიო, რომ შედეგი მიიღო.',
@@ -501,6 +503,7 @@ const BASE_BLOG_POSTS = [
   },
   {
     slug: 'quantum-computing-reality',
+    legacySlugs: ['quantum-computing-reality-2026'],
     title: 'კვანტური კომპიუტერი: რა არის რეალური და რა გადაჭარბება',
     excerpt:
       'კვანტური კომპიუტერი ხშირად "მაგიურ ტექნოლოგიად" წარმოგვიდგება. რა არის რეალობა და რა უნდა იცოდეს დეველოპერმა?',
@@ -708,10 +711,39 @@ export const blogPosts = BASE_BLOG_POSTS.map((post) => ({
   readingMinutes: calculateReadingMinutes(post),
 }))
 
+const normalizeBlogSlug = (slug = '') => (
+  String(slug).trim().replace(/^\/+|\/+$/g, '')
+)
+
+const legacyBlogSlugMap = blogPosts.reduce((map, post) => {
+  for (const legacySlug of post.legacySlugs || []) {
+    map.set(normalizeBlogSlug(legacySlug), post.slug)
+  }
+  return map
+}, new Map())
+
 export const getBlogPostBySlug = (slug) => (
-  blogPosts.find((post) => post.slug === slug)
+  blogPosts.find((post) => post.slug === normalizeBlogSlug(slug))
 )
 
 export const getCategoryLabel = (categoryId) => (
   BLOG_CATEGORIES.find((item) => item.id === categoryId)?.label || categoryId
 )
+
+export const getCanonicalBlogSlug = (slug) => {
+  const normalizedSlug = normalizeBlogSlug(slug)
+  if (!normalizedSlug) return ''
+
+  if (getBlogPostBySlug(normalizedSlug)) {
+    return normalizedSlug
+  }
+
+  return legacyBlogSlugMap.get(normalizedSlug) || ''
+}
+
+export const blogSlugRedirects = blogPosts.flatMap((post) => (
+  (post.legacySlugs || []).map((legacySlug) => ({
+    from: normalizeBlogSlug(legacySlug),
+    to: post.slug,
+  }))
+))

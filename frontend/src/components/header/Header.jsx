@@ -6,7 +6,7 @@ import { FiMenu, FiX } from 'react-icons/fi'
 const desktopMenuItems = [
   { label: 'მთავარი', to: '/' },
   { label: 'კურსები', to: '/courses' },
-  { label: 'ბლოგი', to: '/blog' },
+  { label: 'ბლოგი', to: '/blog/' },
   { label: 'წარმატება', to: '/success', highlighted: true },
   { label: 'კონტაქტი', to: '/contact' },
 ]

@@ -177,6 +177,74 @@ const writePage = async (route, html) => {
   await fs.writeFile(path.join(outputDir, 'index.html'), html, 'utf8')
 }
 
+const writeDistFile = async (relativePath, content) => {
+  const targetPath = path.join(distDir, relativePath)
+  await ensureDir(path.dirname(targetPath))
+  await fs.writeFile(targetPath, content, 'utf8')
+}
+
+const renderRedirectPage = ({ from, to }) => {
+  const fromUrl = toAbsoluteUrl(from)
+  const toUrl = toAbsoluteUrl(to)
+
+  return `<!doctype html>
+<html lang="ka">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redirecting | INNO M Academy</title>
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="${escapeHtml(toUrl)}" />
+    <meta http-equiv="refresh" content="0; url=${escapeHtml(toUrl)}" />
+    <script>window.location.replace(${JSON.stringify(toUrl)});</script>
+  </head>
+  <body style="font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#020617;color:#e2e8f0;padding:32px;">
+    <main style="max-width:720px;margin:0 auto;">
+      <h1 style="font-size:1.6rem;margin:0 0 12px;">გვერდი განახლდა</h1>
+      <p style="line-height:1.7;margin:0 0 12px;">ძველი ბმული გადავიყვანეთ ახალ canonical მისამართზე.</p>
+      <p style="line-height:1.7;margin:0 0 12px;">ძველი URL: <a href="${escapeHtml(fromUrl)}" style="color:#93c5fd;">${escapeHtml(fromUrl)}</a></p>
+      <p style="line-height:1.7;margin:0;">ახალი URL: <a href="${escapeHtml(toUrl)}" style="color:#93c5fd;">${escapeHtml(toUrl)}</a></p>
+    </main>
+  </body>
+</html>`
+}
+
+const buildSitemapXml = (posts) => {
+  const blogLastmod = posts.reduce((latest, post) => (
+    !latest || post.updatedAt > latest ? post.updatedAt : latest
+  ), '')
+
+  const entries = [
+    { loc: toAbsoluteUrl('/'), changefreq: 'weekly', priority: '1.0' },
+    { loc: toAbsoluteUrl('/courses'), changefreq: 'weekly', priority: '0.9' },
+    { loc: toAbsoluteUrl('/registration'), changefreq: 'weekly', priority: '0.8' },
+    { loc: toAbsoluteUrl('/success'), changefreq: 'monthly', priority: '0.8' },
+    { loc: toAbsoluteUrl('/contact'), changefreq: 'monthly', priority: '0.7' },
+    { loc: toAbsoluteUrl('/blog/'), lastmod: blogLastmod, changefreq: 'weekly', priority: '0.9' },
+    ...posts.map((post) => ({
+      loc: toAbsoluteUrl(`/blog/${post.slug}/`),
+      lastmod: post.updatedAt,
+      changefreq: 'monthly',
+      priority: '0.8',
+    })),
+  ]
+
+  const urls = entries.map((entry) => {
+    const lastmod = entry.lastmod ? `\n    <lastmod>${entry.lastmod}</lastmod>` : ''
+    return `  <url>
+    <loc>${escapeHtml(entry.loc)}</loc>${lastmod}
+    <changefreq>${entry.changefreq}</changefreq>
+    <priority>${entry.priority}</priority>
+  </url>`
+  }).join('\n')
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls}
+</urlset>
+`
+}
+
 const buildBlogStructuredData = (posts) => ({
   '@context': 'https://schema.org',
   '@type': 'Blog',
@@ -231,6 +299,7 @@ const run = async () => {
   const templateHtml = await fs.readFile(templatePath, 'utf8')
   const blogModule = await import(pathToFileURL(path.join(projectRoot, 'src/pages/blog/blogPosts.js')).href)
   const posts = Array.isArray(blogModule.blogPosts) ? blogModule.blogPosts : []
+  const redirects = Array.isArray(blogModule.blogSlugRedirects) ? blogModule.blogSlugRedirects : []
 
   const blogPageSeo = {
     title: 'ბლოგი | INNO M Academy',
@@ -276,7 +345,16 @@ const run = async () => {
     await writePage(route, applySeo(templateHtml, pageSeo))
   }
 
-  console.log(`Prerender completed for ${posts.length + 1} routes.`)
+  for (const redirect of redirects) {
+    await writePage(`/blog/${redirect.from}`, renderRedirectPage({
+      from: `/blog/${redirect.from}/`,
+      to: `/blog/${redirect.to}/`,
+    }))
+  }
+
+  await writeDistFile('sitemap.xml', buildSitemapXml(posts))
+
+  console.log(`Prerender completed for ${posts.length + redirects.length + 1} routes.`)
 }
 
 run().catch((error) => {

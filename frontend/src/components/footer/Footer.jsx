@@ -5,7 +5,7 @@ import { FaFacebookF, FaInstagram, FaPhoneAlt, FaTiktok } from 'react-icons/fa'
 const quickLinks = [
   { label: 'მთავარი', to: '/' },
   { label: 'კურსები', to: '/courses' },
-  { label: 'ბლოგი', to: '/blog' },
+  { label: 'ბლოგი', to: '/blog/' },
   { label: 'წარმატება', to: '/success' },
   { label: 'კონტაქტი', to: '/contact' },
 ]
