@@ -251,10 +251,10 @@ export default function Courses() {
   return (
     <section className="min-h-screen py-16 font-mersad2 courses-page relative overflow-hidden" aria-labelledby="courses-title">
       <Seo
-        title="პროგრამირების კურსები | INNO M Academy"
-        description="აირჩიე შენთვის სასურველი კურსი: პროგრამირება, AI, მონაცემთა ანალიზი და სხვა თანამედროვე მიმართულებები."
+        title="პროგრამირების კურსები ონლაინ | INNO M Academy"
+        description="აირჩიე ონლაინ პროგრამირების კურსები ბავშვებისთვის, მოზარდებისთვის და ზრდასრულებისთვის: პროგრამირება, AI, მონაცემთა ანალიზი და სხვა თანამედროვე მიმართულებები."
         path="/courses"
-        keywords={['კურსები', 'პროგრამირება', 'AI', 'ონლაინ სწავლა', 'INNO M Academy']}
+        keywords={['პროგრამირების კურსები', 'ონლაინ პროგრამირების კურსები', 'პროგრამირების სწავლა', 'AI კურსები', 'ინო ემ აკადემია', 'INNO M Academy']}
         structuredData={[coursesPageStructuredData, coursesStructuredData, breadcrumbStructuredData]}
       />
       <WarningToast

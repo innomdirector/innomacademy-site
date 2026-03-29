@@ -29,9 +29,11 @@ const MainLayout = () => {
       '@context': 'https://schema.org',
       '@type': 'EducationalOrganization',
       name: siteConfig.siteName,
+      alternateName: siteConfig.alternateNames,
       url: siteConfig.siteUrl,
       description: siteConfig.defaultDescription,
       logo: toAbsoluteUrl('/icon-images/innomlogov2.png'),
+      areaServed: 'GE',
       contactPoint: [
         {
           '@type': 'ContactPoint',
@@ -41,11 +43,7 @@ const MainLayout = () => {
           availableLanguage: ['ka', 'en'],
         },
       ],
-      sameAs: [
-        'https://www.facebook.com/innomacademy',
-        'https://www.instagram.com/inno_m_academy/',
-        'https://www.tiktok.com/@inno_m_academy',
-      ],
+      sameAs: siteConfig.socialProfiles,
     },
     {
       '@context': 'https://schema.org',
@@ -58,6 +56,7 @@ const MainLayout = () => {
       '@context': 'https://schema.org',
       '@type': 'WebSite',
       name: siteConfig.siteName,
+      alternateName: siteConfig.alternateNames,
       url: siteConfig.siteUrl,
       inLanguage: 'ka-GE',
     },
@@ -66,15 +65,23 @@ const MainLayout = () => {
   return (
     <div className="relative overflow-hidden">
       <Seo
-        title="INNO M Academy | პროგრამირების და ტექნოლოგიების ონლაინ კურსები"
-        description="ისწავლე პროგრამირება, AI და თანამედროვე ტექნოლოგიები პრაქტიკულად INNO M Academy-ში. კურსები ბავშვებისთვის და ზრდასრულებისთვის."
+        title="INNO M Academy | ონლაინ პროგრამირების კურსები ბავშვებისთვის და ზრდასრულებისთვის"
+        description="ისწავლე პროგრამირება, AI და თანამედროვე ტექნოლოგიები პრაქტიკულად INNO M Academy-ში. ონლაინ პროგრამირების კურსები ბავშვებისთვის, მოზარდებისთვის და ზრდასრულებისთვის."
         path="/"
         keywords={[
           'პროგრამირების კურსები',
-          'ონლაინ აკადემია',
-          'AI კურსი',
+          'პროგრამირების აკადემია',
+          'ხელმისაწვდომი პროგრამირების კურსები',
+          'ონლაინ პროგრამირების კურსები',
+          'პროგრამირების სწავლა',
+          'პროგრამირების კურსები ბავშვებისთვის',
+          'პროგრამირების კურსები ზრდასრულებისთვის',
+          'AI კურსები',
           'ვებ დეველოპმენტი',
+          'ინო ემ აკადემია',
           'INNO M Academy',
+          'INNO M აკადემია',
+          'INNO M'
         ]}
         structuredData={homeStructuredData}
       />

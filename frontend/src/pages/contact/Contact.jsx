@@ -2,7 +2,7 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { FaInstagram, FaTiktok, FaFacebook, FaPhoneAlt } from 'react-icons/fa'
 import Seo from '../../seo/Seo'
-import { toAbsoluteUrl } from '../../seo/siteConfig'
+import { siteConfig, toAbsoluteUrl } from '../../seo/siteConfig'
 
 const contactCards = [
   {
@@ -47,23 +47,20 @@ const fadeUp = {
 const Contact = () => {
   const contactStructuredData = {
     '@context': 'https://schema.org',
-    '@type': 'ContactPage',
-    name: 'INNO M Academy კონტაქტი',
-    description: 'INNO M Academy-ის საკონტაქტო ინფორმაცია და სწრაფი კომუნიკაციის არხები.',
-    url: toAbsoluteUrl('/contact'),
-    mainEntity: {
-      '@type': 'EducationalOrganization',
-      name: 'INNO M Academy',
-      url: toAbsoluteUrl('/'),
-      telephone: '+995 598 19 05 06',
-      sameAs: [
-        'https://www.facebook.com/innomacademy',
-        'https://www.instagram.com/inno_m_academy/',
-        'https://www.tiktok.com/@inno_m_academy',
-      ],
-      contactPoint: [
-        {
-          '@type': 'ContactPoint',
+      '@type': 'ContactPage',
+      name: 'INNO M Academy კონტაქტი',
+      description: 'INNO M Academy-ის საკონტაქტო ინფორმაცია და სწრაფი კომუნიკაციის არხები.',
+      url: toAbsoluteUrl('/contact'),
+      mainEntity: {
+        '@type': 'EducationalOrganization',
+        name: siteConfig.siteName,
+        alternateName: siteConfig.alternateNames,
+        url: toAbsoluteUrl('/'),
+        telephone: '+995 598 19 05 06',
+        sameAs: siteConfig.socialProfiles,
+        contactPoint: [
+          {
+            '@type': 'ContactPoint',
           telephone: '+995 598 19 05 06',
           contactType: 'customer support',
           areaServed: 'GE',
@@ -96,9 +93,9 @@ const Contact = () => {
     <div className="text-white font-mersad2 mt-8">
       <Seo
         title="კონტაქტი | INNO M Academy"
-        description="დაგვიკავშირდი INNO M Academy-ს გუნდს. მიიღე სწრაფი კონსულტაცია კურსების შესახებ."
+        description="დაგვიკავშირდი INNO M Academy-ს გუნდს და მიიღე სწრაფი კონსულტაცია ონლაინ პროგრამირების კურსების, AI სწავლების და სწორი მიმართულების არჩევის შესახებ."
         path="/contact"
-        keywords={['კონტაქტი', 'კურსის კონსულტაცია', 'INNO M Academy']}
+        keywords={['კონტაქტი', 'კურსის კონსულტაცია', 'პროგრამირების კურსები', 'ინო ემ აკადემია', 'INNO M Academy']}
         structuredData={[contactStructuredData, breadcrumbStructuredData]}
       />
       <div className="max-w-7xl mx-auto px-6 py-16">
