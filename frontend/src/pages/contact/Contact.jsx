@@ -213,7 +213,7 @@ const Contact = () => {
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <div className="px-4 py-2 rounded-full bg-[#22d3ee]/15 text-[#22d3ee] text-sm font-semibold">
-                მხარდაჭერა მთელი გზის განმავლობაში
+                მხარდაჭერა ყოელთვის
               </div>
               <div className="px-4 py-2 rounded-full bg-[#f59e0b]/15 text-[#f59e0b] text-sm font-semibold">
                 ინდივიდუალური რჩევა

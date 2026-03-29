@@ -64,7 +64,7 @@ const simplePlan = [
 
 const academyPillars = [
   {
-    title: 'მხარდაჭერის გარემო',
+    title: 'გარემო მხარს გიჭერს',
     text: 'აქ მარტო არ ხარ. გუნდი, მენტორები და თანამოაზრეები გვერდით გიდგანან.'
   },
   {
@@ -268,13 +268,13 @@ const SuccessRoad = () => {
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <div className="px-4 py-2 rounded-full bg-[#22d3ee]/15 text-[#22d3ee] text-sm font-semibold">
-                მკაფიო გეგმა
+                ზუსტი გეგმა
               </div>
               <div className="px-4 py-2 rounded-full bg-[#2563eb]/15 text-[#2563eb] text-sm font-semibold">
                 ძლიერი გარემო
               </div>
               <div className="px-4 py-2 rounded-full bg-[#60a5fa]/15 text-[#60a5fa] text-sm font-semibold">
-                სწორი MINDSET
+                სწორი Mindset
               </div>
             </div>
           </motion.div>
@@ -307,7 +307,7 @@ const SuccessRoad = () => {
               მარტივი გეგმა 3 ნაბიჯში
             </h2>
             <p className="text-white/70 mt-4">
-              თუ გინდა ნათელი მიმართულება, ეს სამი ნაბიჯი გახდება შენი საწყისი ჩარჩო.
+              თუ გინდა სწორი მიმართულება, ეს სამი ნაბიჯი გახდება შენი საწყისი ჩარჩო.
             </p>
           </motion.div>
 
