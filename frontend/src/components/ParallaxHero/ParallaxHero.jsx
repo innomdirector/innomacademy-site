@@ -169,7 +169,7 @@ export default function ParallaxHero() {
             </div>
 
             <motion.img
-              src="/parallaxsectionimages/aicode.jpg"
+              src="/parallaxsectionimages/gemini1.webp"
               alt="AI ვიზუალური ფონი"
               loading="lazy"
               decoding="async"
@@ -180,7 +180,7 @@ export default function ParallaxHero() {
               className="absolute -right-3 top-6 h-26 w-26 rounded-xl border border-[#60a5fa]/60 object-cover shadow-[0_14px_28px_-16px_rgba(59,130,246,0.55)]"
             />
             <motion.img
-              src="/parallaxsectionimages/coderain.jpg"
+              src="/parallaxsectionimages/gemini2.webp"
               alt="კოდის წვიმის ფონი"
               loading="lazy"
               decoding="async"
